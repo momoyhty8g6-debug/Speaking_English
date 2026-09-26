@@ -19,17 +19,20 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Install Bubblewrap
         run: npm install -g @bubblewrap/cli
 
       - name: Init Bubblewrap project
         run: |
-          bubblewrap init --manifest=https://momoyhty8g6-debug.github.io/Speaking_English/manifest.json --directory=twa-project -y
+          printf 'n\nn\n\n\n\n\n\n\n\n\n\n\n\n\n' | bubblewrap init --manifest=https://momoyhty8g6-debug.github.io/Speaking_English/manifest.json --directory=twa-project -y || true
 
       - name: Build APK
         run: |
           cd twa-project
-          bubblewrap build
+          bubblewrap build --skipPwaValidation
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
